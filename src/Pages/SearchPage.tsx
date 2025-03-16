@@ -1,10 +1,12 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch } from "../Redux/hooks";
+import { useSelector } from "react-redux";
+
 import { searchPokemon, clearSearch } from "../Redux/searchSlice";
 import { RootState } from "../Redux/store";
 
 const Search: React.FC = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { pokemon, status, error } = useSelector((state: RootState) => state.search);
 
   const [query, setQuery] = useState("");
@@ -12,7 +14,7 @@ const Search: React.FC = () => {
 
   const handleSearch = () => {
     if (query.trim() !== "") {
-      dispatch(searchPokemon(query));
+      dispatch(searchPokemon(query) as unknown as any);
     }
   };
 

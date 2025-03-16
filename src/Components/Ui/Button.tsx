@@ -1,12 +1,21 @@
-import React from "react";
+import * as React from "react";
 import { Slot } from "@radix-ui/react-slot";
 
-type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
-  asChild?: boolean; // Untuk menggunakan elemen lain sebagai button
+const buttonVariants = {
+  default: "bg-blue-500 text-white px-4 py-2 rounded",
+  outline: "border border-gray-300 text-gray-700",
+  ghost: "border border-red-300 text-black-700",
 };
 
-export const Button: React.FC<ButtonProps> = ({ asChild, className, ...props }) => {
-  const Comp = asChild ? Slot : "button"; // Jika `asChild` true, gunakan Slot dari Radix UI
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  asChild?: boolean;
+  variant?: keyof typeof buttonVariants;
+}
 
-  return <Comp className={"px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-all"} {...props} />;
-};
+const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({ className, asChild = false, variant = "default", ...props }, ref) => {
+  const Comp = asChild ? Slot : "button";
+  return <Comp className={(buttonVariants[variant], className)} ref={ref} {...props} />;
+});
+
+Button.displayName = "Button";
+export { Button };

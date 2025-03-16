@@ -10,7 +10,7 @@ type PokemonProps = {
   abilities: string[];
 };
 
-export const Pokemon: React.FC<PokemonProps> = ({ id, name, height, weight, image, types, abilities }) => {
+export const Pokemon: React.FC<PokemonProps> = ({ name, height, weight, image, types, abilities }) => {
   return (
     <div className="w-[220px] h-[280px] border rounded-lg shadow-md p-3 bg-white flex flex-col items-center text-center">
       {/* Gambar Pokémon */}
